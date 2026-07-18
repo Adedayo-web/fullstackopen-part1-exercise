@@ -1,0 +1,217 @@
+A. Introduction To React
+==================================================
+
+	The easiest way to create react apps is using vite.
+
+we create our react app using
+
+npm create vite@latest
+
+check the components part of part 1 if you need help creating the react app.
+
+Install with npm and start now? should be yes if you want all the required dependencies installed and you want the application to start automatically. in this course so far we gave no because we want to learn how to manually install the dependencies.
+
+we then do 
+
+cd part1
+npm install
+
+and 
+
+npm run dev
+
+npm install is only necessary if you haven't installed the dependencies earlier.
+
+npm run dev is to open the web page
+
+
+Components
+------------
+	All content that is rendered in react is called a component. App.jsx defines a react component with name App. and every component must start with capital letter and return something e.g.
+
+function App() {
+  return (
+    <>
+      <div>
+        <p>Hello world</p>
+      </div>
+    </>
+  );
+}
+
+method of defining functions in JavaScript are:
+
+arrow functions:
+const App = () => {
+  return (
+    
+      <div>
+        <p>Hello world</p>
+      </div>
+
+  );
+};
+
+it is possible to render dynamic content in a react like in the example:
+
+const App = () => {
+  const now = new Date(); // used to get the current date and time
+  const a = 10;
+  const b = 20;
+  console.log(now, a + b);
+  return (
+    <div>
+      <p>Hello world, it is {now.toString()}</p> /* .toString() is used to change the date to string */
+      <p>
+        {a} plus {b} is {a + b}
+      </p>
+    </div>
+  );
+};
+
+
+note: all components must be exported so that they can be rendered.
+
+export default App;
+
+
+
+JSX
+------
+	Currently for the course we will be using JSX. the JSX is what react is mostly written using. it may look like HTML but it is not. the compilation of react code is handled by Babel. Projects created with Vite are configured to compile automatically.
+
+
+Multiple components
+--------------------
+This is an example of how multiple components can be used. e.g.
+
+const Hello = () => {
+  return (
+    <div>
+      <p>Hello World</p>
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div>
+      <Hello />
+    </div>
+  );
+};
+
+
+a core philosophy of react is make each components specialized (a specific component should serve a particular goal not multiple for easier maintainability) and reusable. 
+
+
+
+Props: passing data to components
+----------------------------------
+	Props is used to pass data to components. 
+
+const Hello = (props) => {
+  return (
+    <div>
+      <p>Hello {props.name}</p>
+    </div>
+  );
+};
+
+const App = () => {
+  return (
+    <div>
+      <Hello name="Wale" />
+      <Hello name="Ade" />
+    </div>
+  );
+};
+
+the name props value can be hard-coded like in the example above or dynamic.
+
+if the value of the props are dynamic or achieved you do it like in the example below.
+
+const Hello = (props) => {
+  console.log(props);
+  return (
+    <div>
+      <p>
+        Hello {props.name}, you are {props.age} years old
+      </p>
+    </div>
+  );
+};
+
+const App = () => {
+  const name = "Peter";
+  const age = 10;
+  return (
+    <div>
+      <Hello name="Wale" age={26 - 10} />
+      <Hello name={name} age={age} />
+    </div>
+  );
+};
+
+
+
+some notes
+--------------------------
+When working with react it is important to have your console open at all times. if your program has an error after adding a particular new code, it is advisable to fix the error instead of programming and hoping for the best.
+Always console.log() commands within your code so that it becomes easier to pin point errors in the code.
+always put element returned by a component inside of a <div> if it is only one container but if it will have multiple containers use fragments(<></>) instead.
+
+
+Do not render objects
+----------------------
+
+const App = () => {
+  const friends = [
+    { name: "Kofi", age: 4 },
+    { name: "James", age: 10 },
+  ];
+  console.log(friends[0]);
+  console.log(friends[1]);
+  return (
+    <div>
+      <p>{friends[0]}</p>
+      <p>{friends[1]}</p>
+    </div>
+  );
+};
+
+if I did the above code nothing will render because objects are not valid as react child because react can only render primitive values that can be a string or number etc. the right way to go about it is using. you console.log objects too.
+
+const App = () => {
+  const friends = [
+    { name: "Kofi", age: 4 },
+    { name: "James", age: 10 },
+  ];
+  console.log(friends[0].name);
+  console.log(friends[1].age);
+  return (
+    <div>
+      <p>
+        {friends[0].name} and {friends[0].age}
+      </p>
+      <p>
+        {friends[1].name} and {friends[1].age}
+      </p>
+    </div>
+  );
+};
+
+
+Arrays can be rendered unlike objects.
+
+const App = () => {
+  const friends = ["Timi", "Obi"];
+  console.log(friends[0]);
+  console.log(friends[1]);
+  return (
+    <div>
+      <p>{friends}</p>
+      <p>{friends[1]}</p>
+    </div>
+  );
+};
