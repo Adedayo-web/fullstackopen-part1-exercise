@@ -1,26 +1,6 @@
 const Header = (props) => {
   return <h1>{props.course}</h1>;
-};
-const Contentboby = (props) => {
-  return (
-    <p>
-      {props.part} {props.exercise}
-    </p>
-  );
-};
-const parts = [
-  { part: "Fundamentals of React", exercise: 10 },
-  { part: "Using props to pass data", exercise: 7 },
-  { part: "State of a component", exercise: 14 },
-];
-const Content = (props) => {
-  return (
-    <>
-      <Contentboby part={parts[0].part} exercise={parts[0].exercise} />
-      <Contentboby part={parts[1].part} exercise={parts[1].exercise} />
-      <Contentboby part={parts[2].part} exercise={parts[2].exercise} />
-    </>
-  );
+  console.log(props.course);
 };
 
 const Total = (props) => {
@@ -28,15 +8,33 @@ const Total = (props) => {
 };
 
 const App = () => {
-  const course = "Half Stack application development";
+  const Content = (props) => {
+    props = {
+      name: course.parts,
+    };
+    return props.name.map((part) => (
+      <p key={part.name}>
+        {part.name} {part.exercise}
+      </p>
+    ));
+  };
+
+  const course = {
+    name: "Half Stack application development",
+    parts: [
+      { name: "Fundamentals of React", exercise: 10 },
+      { name: "Using props to pass data", exercise: 7 },
+      { name: "State of a component", exercise: 14 },
+    ],
+  };
   return (
     <div>
-      <Header course={course} />
-      <Content />
+      <Header course={course.name} />
+      <Content name={course.parts} />
       <Total
-        exer1={parts[0].exercise}
-        exer2={parts[1].exercise}
-        exer3={parts[2].exercise}
+        exer1={course.parts[0].exercise}
+        exer2={course.parts[1].exercise}
+        exer3={course.parts[2].exercise}
       />
     </div>
   );
